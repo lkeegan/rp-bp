@@ -1,14 +1,14 @@
 name: CI
 
-on:
-  push:
-    branches:
-      - master
-      - dev-ssciwr
-  pull_request:
-    branches:
-      - master
-      - dev-ssciwr
+on: push
+#  push:
+#    branches:
+#      - master
+#      - dev-ssciwr
+#  pull_request:
+#    branches:
+#      - master
+#      - dev-ssciwr
 
 jobs:
   install-and-test:
@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest]
+        os: [macos-latest]
     steps:
       - uses: actions/checkout@v3
       - name: Create rpbp conda environment
@@ -41,4 +41,11 @@ jobs:
       - name: Install rp-bp
         run: pip install . --verbose
       - name: Run tests
-        run: python -m pytest . -s -v
+        run: python -m pytest . --cov=rpbp --cov-report=xml -s -v
+      # - name: Upload code coverage to codecov
+      #   uses: codecov/codecov-action@v3
+      #   with:
+      #     files: ./coverage.xml
+      #     name: ${{ matrix.os }}
+      #     fail_ci_if_error: true
+      #     verbose: true
