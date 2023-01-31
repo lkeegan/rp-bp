@@ -168,7 +168,7 @@ def get_orfs(gtf, args, config, is_annotated=False, is_de_novo=False):
     )
 
 
-def main():
+def get_parser():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         description="""Prepare a reference genome and matching
@@ -184,10 +184,14 @@ def main():
         will be overwritten.""",
         action="store_true",
     )
-
     slurm.add_sbatch_options(parser, num_cpus=default_num_cpus, mem=default_mem)
     logging_utils.add_logging_options(parser)
     pgrm_utils.add_star_options(parser, star_executable)
+    return parser
+
+
+def main():
+    parser = get_parser()
     args = parser.parse_args()
     logging_utils.update_logging(args)
 

@@ -96,6 +96,7 @@ docs = [
   "pandoc",
   "sphinx>=4.5.0",
   "sphinx_rtd_theme>=1.0.0",
+  "sphinx-argparse",
   "furo",
 ]
 
